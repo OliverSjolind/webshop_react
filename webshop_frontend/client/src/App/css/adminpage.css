@@ -1,0 +1,139 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/*
+    ADMIN PAGE
+**/
+
+.side-nav {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.2;
+}
+
+.side-nav .side-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: #fff;
+}
+
+.side-nav .side-nav-header {
+    font-size: 2.4rem !important;
+    padding: 20px;
+}
+
+.side-nav .side-nav-header:hover {
+    background: #393939;
+}
+
+.side-nav .side-nav-header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.side-nav-link.active {
+    border-left: 2px solid #add8e6;
+    background: #393939;
+}
+
+.side-nav-link.active i {
+    color: #add8e6;
+}
+
+.side-nav .side-nav-link i {
+    margin-right: 10px;
+}
+
+.side-nav .side-nav-link a {
+    color: #fff;
+    font-size: 1.2rem !important;
+    text-decoration: none;
+}
+
+.side-nav .side-nav-link:hover {
+    background: #393939;
+}
+
+.products-table {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div.container {
+    width: calc(100% - 250px);
+    padding: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: auto;
+}
+
+.add-product {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: calc(100% - 250px) !important;
+    margin-left: auto !important;
+}
+
+.products-table td {
+    text-align: center;
+}
+
+.dashboard {
+    padding: 50px;
+}
+
+.dashboard-chart {
+    width: calc(100% - 250px) !important;
+    height: 100% !important;
+    margin-left: auto;
+}
+
+.loader-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 250px);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+}
+
+.loader-wrapper .loader {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
