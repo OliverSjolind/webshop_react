@@ -22,7 +22,6 @@ class ProductCards extends Component {
             .then(products => this.setState({ products }))
     }
 
-
     render() {
         const { products } = this.state;
         console.log(this.state)

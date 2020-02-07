@@ -36,12 +36,13 @@ class Navbar extends Component {
                         </div>
                         <div className="nav-content container center">
                             <ul className="tabs tabs-transparent">
-                                <li className="tab"><a href="/c/computers">computers</a></li>
-                                <li className="tab"><a href="/c/components">components</a></li>
-                                <li className="tab"><a href="/c/peripherals">peripherals</a></li>
-                                <li className="tab"><a href="/c/phones">phones</a></li>
-                                <li className="tab"><a href="/c/gaming">gaming</a></li>
-                                <li className="tab"><a href="/c/network">network</a></li>
+                                <li className="tab"><Link to="/c/computers">Computers</Link>
+                                </li>
+                                <li className="tab"><Link to="/c/components">Components</Link></li>
+                                <li className="tab"><Link to="/c/peripherals">Peripherals</Link></li>
+                                <li className="tab"><Link to="/c/phones">Phones</Link></li>
+                                <li className="tab"><Link to="/c/gaming">Gaming</Link></li>
+                                <li className="tab"><Link to="/c/network">Network</Link></li>
                             </ul>
                         </div>
                     </nav>
