@@ -87,7 +87,7 @@ class ProductCards extends Component {
                             }
                         </div >
                     ) : (
-                            <div>
+                            <div className="no-product">
                                 <h2>No products found</h2>
                             </div>
                         )

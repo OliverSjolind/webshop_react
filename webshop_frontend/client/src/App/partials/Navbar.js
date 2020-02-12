@@ -6,6 +6,22 @@ class Navbar extends Component {
         super(props);
 
         this.tab = React.createRef();
+        this.activeTab = this.activeTab.bind(this)
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props !== prevProps) {
+            this.activeTab()
+        }
+    }
+
+    componentDidMount() {
+        this.activeTab()
+    }
+
+
+    activeTab() {
+        console.log(this.tab.current)
     }
 
     render() {
@@ -26,17 +42,17 @@ class Navbar extends Component {
                                     <a className="btn white black-text" href="/signup">Sign up</a>
                                 </div>
                                 <div id="signedIn" style={{ display: "none" }}>
-                                    <a className="dropdown-trigger" href="#" data-target="user-dropdown">
+                                    <a className="dropdown-trigger" data-target="user-dropdown">
                                         <i className="fas fa-user"></i>
                                         <span id="userName"></span>
                                         <i className="fas fa-caret-down"></i>
                                     </a>
                                     <ul id="user-dropdown" className="dropdown-content">
-                                        <li id="logOut"><a href="#">Log out</a></li>
+                                        <li id="logOut"><a>Log out</a></li>
                                     </ul>
                                 </div>
                             </ul>
-                            <a className=" cart" href="#">
+                            <a className=" cart">
                                 <i className="material-icons">shopping_cart</i>
                             </a>
                         </div>
@@ -64,13 +80,15 @@ class Navbar extends Component {
                         <input placeholder="Search" className="search-bar" type="search" />
                     </form>
                     <div className="buttons">
-                        <a className="btn grey darken-3" href="#">Log in</a>
-                        <a className="btn grey darken-3" href="#">Sign up</a>
+                        <a className="btn grey darken-3" >Log in</a>
+                        <a className="btn grey darken-3" >Sign up</a>
                     </div>
                 </ul></div>
         )
     }
 }
+
+
 
 // let tabs = document.getElementsByClassName('tab')
 // for (let i = 0; i < tabs.length; i++) {

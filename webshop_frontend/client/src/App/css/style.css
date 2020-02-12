@@ -146,6 +146,20 @@ footer .page-footer {
   margin: 75px auto;
 }
 
+.container.products .no-product {
+  height: 50vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .container.products .dropdown-content {
   z-index: 5 !important;
 }
@@ -167,9 +181,8 @@ footer .page-footer {
 }
 
 .container.products .loader-wrapper {
-  position: absolute;
-  width: 70%;
-  height: 70%;
+  width: 100%;
+  height: 50vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

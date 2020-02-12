@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Navbar from './partials/Navbar';
+import Footer from './partials/Footer'
 import ProductCards from './components/product-cards';
 import ProductPage from './pages/ProductPage';
 
@@ -18,6 +19,7 @@ class App extends Component {
                         </Switch>
                     </div>
                 </div>
+                <Footer />
             </div>
         )
         return (
