@@ -4,6 +4,30 @@ const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
 
+app.get('/p/:product', function (req, res, next) {
+    let productUrl = req.params.product;
+
+    let db = new sqlite3.Database('products.db', sqlite3.OPEN_READONLY, (err) => {
+        if (err) console.error(err.message);
+        console.log('Connected to the products database.');
+    });
+
+    db.serialize(() => {
+
+        db.get(`SELECT * FROM products WHERE url = ?`, [productUrl], (err, product) => {
+            if (err) console.error(err.message);
+
+            res.json(product)
+
+        });
+    });
+
+    db.close((err) => {
+        if (err) return console.error(err.message);
+        console.log('Closed the database connection.');
+    });
+});
+
 app.get('/c/:category', function (req, res) {
     let categoryName = req.params.category;
 

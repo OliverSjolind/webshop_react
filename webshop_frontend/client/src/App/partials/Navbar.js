@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.tab = React.createRef();
+    }
+
     render() {
         return (
             <div>
@@ -36,13 +42,13 @@ class Navbar extends Component {
                         </div>
                         <div className="nav-content container center">
                             <ul className="tabs tabs-transparent">
-                                <li className="tab"><Link to="/c/computers">Computers</Link>
-                                </li>
-                                <li className="tab"><Link to="/c/components">Components</Link></li>
-                                <li className="tab"><Link to="/c/peripherals">Peripherals</Link></li>
-                                <li className="tab"><Link to="/c/phones">Phones</Link></li>
-                                <li className="tab"><Link to="/c/gaming">Gaming</Link></li>
-                                <li className="tab"><Link to="/c/network">Network</Link></li>
+
+                                <li className="tab" ref={this.tab}><Link to="/c/computers">Computers</Link></li>
+                                <li className="tab" ref={this.tab}><Link to="/c/components">Components</Link></li>
+                                <li className="tab" ref={this.tab}><Link to="/c/peripherals">Peripherals</Link></li>
+                                <li className="tab" ref={this.tab}><Link to="/c/phones">Phones</Link></li>
+                                <li className="tab" ref={this.tab}><Link to="/c/gaming">Gaming</Link></li>
+                                <li className="tab" ref={this.tab}><Link to="/c/network">Network</Link></li>
                             </ul>
                         </div>
                     </nav>
@@ -65,5 +71,14 @@ class Navbar extends Component {
         )
     }
 }
+
+// let tabs = document.getElementsByClassName('tab')
+// for (let i = 0; i < tabs.length; i++) {
+//     if (window.location.pathname == tabs[i].firstChild.pathname) {
+//         tabs[i].classList.add('active');
+//     } else {
+//         tabs[i].classList.remove('active');
+//     }
+// }
 
 export default Navbar;

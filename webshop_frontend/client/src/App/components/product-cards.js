@@ -9,16 +9,18 @@ class ProductCards extends Component {
         }
     }
 
-    componentDidMount() {
-        this.getProducts();
-    }
-
     // Fetch the list on first mount
     componentDidUpdate(prevProps) {
         if (this.props !== prevProps) {
             this.getProducts();
         }
     }
+
+    componentDidMount() {
+        this.getProducts();
+    }
+
+
 
     // Retrieves the list of items from the Express app
     getProducts = () => {
@@ -53,7 +55,7 @@ class ProductCards extends Component {
         }
         const { products } = this.state;
         return (
-            <div>
+            <div className="row">
                 {
                     products.length ? (
                         <div>
@@ -64,8 +66,7 @@ class ProductCards extends Component {
                                             item.id
                                         } >
                                             <div className="card">
-                                                < a href={`/p/${item.name}`
-                                                }>
+                                                <Link to={`/p/${item.url}`}>
                                                     <div className="card-image">
                                                         <img className="image" src={require(`../../assets/images/${item.image}`)} />
                                                     </div>
@@ -74,7 +75,7 @@ class ProductCards extends Component {
                                                         <p className="card-desc">{item.description}</p>
                                                     </div>
 
-                                                </a>
+                                                </Link>
                                                 <div className="card-action">
                                                     <a className="btn grey darken-3 white-text" href="#">Add to cart</a>
                                                     <p className="price" value={item.price}>{item.price}€</p>

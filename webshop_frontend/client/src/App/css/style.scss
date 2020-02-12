@@ -162,9 +162,12 @@ footer {
     }
 
     .loader-wrapper {
-        width: 100%;
+        position: absolute;
+        width: 70%;
+        height: 70%;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     .price-range-filter {
