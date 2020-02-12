@@ -5,26 +5,53 @@ class ProductCards extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            products: []
+            products: null
         }
     }
 
-
-    // Fetch the list on first mount
     componentDidMount() {
         this.getProducts();
     }
 
+    // Fetch the list on first mount
+    componentDidUpdate(prevProps) {
+        if (this.props !== prevProps) {
+            this.getProducts();
+        }
+    }
+
     // Retrieves the list of items from the Express app
     getProducts = () => {
-        fetch('/getFrontpageProducts')
+        let currentUrl;
+        switch (this.props.match.url) {
+            case '/': currentUrl = '/getFrontpageProducts'
+                break;
+            default:
+                currentUrl = this.props.match.url
+        }
+        fetch(currentUrl)
             .then(res => res.json())
             .then(products => this.setState({ products }))
     }
 
     render() {
+        console.log(this.state.products)
+        if (!this.state.products) {
+            return <div className="loader-wrapper">
+                <div className="preloader-wrapper big active">
+                    <div className="spinner-layer spinner-blue-only">
+                        <div className="circle-clipper left">
+                            <div className="circle"></div>
+                        </div><div className="gap-patch">
+                            <div className="circle"></div>
+                        </div><div className="circle-clipper right">
+                            <div className="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
         const { products } = this.state;
-        console.log(this.state)
         return (
             <div>
                 {

@@ -161,6 +161,12 @@ footer {
         }
     }
 
+    .loader-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
     .price-range-filter {
         display: flex;
         justify-content: center;

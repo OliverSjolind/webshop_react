@@ -8,7 +8,7 @@ class Navbar extends Component {
                 <div className="navbar-fixed">
                     <nav className="nav-extended grey darken-3">
                         <div className="nav-wrapper container">
-                            <a href="/" className="brand-logo">Name / Logo</a>
+                            <div className="brand-logo"> <Link to="/">Name / Logo</Link></div>
                             <a href="#" data-target="mobile-demo" className="sidenav-trigger right"><i className="material-icons">menu</i></a>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
                                 <div id="search-form" className="search-bar-wrapper">

@@ -12,6 +12,7 @@ class App extends Component {
                     <div className="row">
                         <Switch>
                             <Route exact path='/' component={ProductCards} />
+                            <Route path='/c/:category' component={ProductCards} />
                         </Switch>
                     </div>
                 </div>
