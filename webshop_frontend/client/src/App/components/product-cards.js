@@ -25,11 +25,12 @@ class ProductCards extends Component {
     // Retrieves the list of items from the Express app
     getProducts = () => {
         let currentUrl;
+        console.log(this.props)
         switch (this.props.match.url) {
             case '/': currentUrl = '/getFrontpageProducts'
                 break;
             default:
-                currentUrl = this.props.match.url
+                currentUrl = this.props.location.pathname + this.props.location.search
         }
         fetch(currentUrl)
             .then(res => res.json())
@@ -37,7 +38,6 @@ class ProductCards extends Component {
     }
 
     render() {
-        console.log(this.state.products)
         if (!this.state.products) {
             return <div className="loader-wrapper">
                 <div className="preloader-wrapper big active">

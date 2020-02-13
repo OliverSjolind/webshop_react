@@ -28,7 +28,7 @@ class ProductPage extends Component {
     }
 
     render() {
-        console.log(this.state.product)
+        console.log(this.props)
         if (!this.state.product) {
             return <div className="loader-wrapper">
                 <div className="preloader-wrapper big active">

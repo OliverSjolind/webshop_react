@@ -17,7 +17,7 @@ class Footer extends Component {
                             <h5 className="white-text">Links</h5>
                             <ul>
                                 <li><Link className="grey-text text-lighten-3 footer-link" to="/c/computers">Computers</Link></li>
-                                <li><Link className="grey-text text-lighten-3 footer-link" to="/c/components">Components</Link></li>
+                                <li><Link className="grey-text text-lighten-3 footer-link" activeClassName="active" to="/c/components">Components</Link></li>
                                 <li><Link className="grey-text text-lighten-3 footer-link" to="/c/peripherals">Peripherals</Link></li>
                                 <li><Link className="grey-text text-lighten-3 footer-link" to="/c/phones">Phones</Link></li>
                                 <li><Link className="grey-text text-lighten-3 footer-link" to="/c/gaming">Gaming</Link></li>

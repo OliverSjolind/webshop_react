@@ -1,32 +1,39 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, Redirect } from 'react-router-dom';
 
 class Navbar extends Component {
     constructor(props) {
         super(props);
-
-        this.tab = React.createRef();
-        this.activeTab = this.activeTab.bind(this)
+        this.state = {
+            searchValue: '',
+            search: false
+        }
+        this._handleKeyDown = this._handleKeyDown.bind(this)
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props !== prevProps) {
-            this.activeTab()
+    handleInput(e) {
+        this.setState({ searchValue: e.target.value })
+    }
+
+
+    handleSearch() {
+        if (this.state.searchValue) {
+            this.setState({ search: true })
         }
     }
 
-    componentDidMount() {
-        this.activeTab()
-    }
-
-
-    activeTab() {
-        console.log(this.tab.current)
+    _handleKeyDown(e) {
+        this.setState({ search: false })
+        if (e.key === 'Enter') {
+            this.handleSearch()
+        }
     }
 
     render() {
         return (
             <div>
+                {this.state.search && <Redirect push to={`/s/${this.state.searchValue}`} />
+                }
                 <div className="navbar-fixed">
                     <nav className="nav-extended grey darken-3">
                         <div className="nav-wrapper container">
@@ -34,9 +41,11 @@ class Navbar extends Component {
                             <a href="#" data-target="mobile-demo" className="sidenav-trigger right"><i className="material-icons">menu</i></a>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
                                 <div id="search-form" className="search-bar-wrapper">
-                                    <input placeholder="Search" id="search-bar-input" className="search-bar" type="search" />
-                                    <a href="#" className="black-text search-icon" id="search"><i className="material-icons">search</i></a>
+                                    <input placeholder="Search" id="search-bar-input" className="search-bar" type="search" value={this.state.searchValue} onInput={this.handleInput.bind(this)} onKeyDown={this._handleKeyDown} />
+                                    <Link className="black-text search-icon" id="search" to={`/s/${this.state.searchValue}`}><i className="material-icons">search</i>
+                                    </Link>
                                 </div>
+
                                 <div id="signedout" style={{ display: "none" }}>
                                     <a className="btn white black-text" href="/login">Log in</a>
                                     <a className="btn white black-text" href="/signup">Sign up</a>
@@ -59,12 +68,12 @@ class Navbar extends Component {
                         <div className="nav-content container center">
                             <ul className="tabs tabs-transparent">
 
-                                <li className="tab" ref={this.tab}><Link to="/c/computers">Computers</Link></li>
-                                <li className="tab" ref={this.tab}><Link to="/c/components">Components</Link></li>
-                                <li className="tab" ref={this.tab}><Link to="/c/peripherals">Peripherals</Link></li>
-                                <li className="tab" ref={this.tab}><Link to="/c/phones">Phones</Link></li>
-                                <li className="tab" ref={this.tab}><Link to="/c/gaming">Gaming</Link></li>
-                                <li className="tab" ref={this.tab}><Link to="/c/network">Network</Link></li>
+                                <li><NavLink className="tab" activeClassName="active" to="/c/computers">Computers</NavLink></li>
+                                <li><NavLink className="tab" activeClassName="active" to="/c/components">Components</NavLink></li>
+                                <li><NavLink className="tab" activeClassName="active" to="/c/peripherals">Peripherals</NavLink></li>
+                                <li><NavLink className="tab" activeClassName="active" to="/c/phones">Phones</NavLink></li>
+                                <li><NavLink className="tab" activeClassName="active" to="/c/gaming">Gaming</NavLink></li>
+                                <li><NavLink className="tab" activeClassName="active" to="/c/network">Network</NavLink></li>
                             </ul>
                         </div>
                     </nav>
@@ -83,20 +92,9 @@ class Navbar extends Component {
                         <a className="btn grey darken-3" >Log in</a>
                         <a className="btn grey darken-3" >Sign up</a>
                     </div>
-                </ul></div>
+                </ul></div >
         )
     }
 }
-
-
-
-// let tabs = document.getElementsByClassName('tab')
-// for (let i = 0; i < tabs.length; i++) {
-//     if (window.location.pathname == tabs[i].firstChild.pathname) {
-//         tabs[i].classList.add('active');
-//     } else {
-//         tabs[i].classList.remove('active');
-//     }
-// }
 
 export default Navbar;

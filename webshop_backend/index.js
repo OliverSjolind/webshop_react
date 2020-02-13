@@ -41,8 +41,16 @@ app.get('/c/:category', function (req, res) {
             if (err) console.error(err.message)
 
             let categoryId = row.id;
+            let queryParam = 'ORDER BY price ASC';
+            let localSql = `SELECT * FROM products AS a, product_categories AS b WHERE b.category_id = ? AND a.id = b.product_id `
+            if (req.query) {
+                if (req.query.ob)
+                    switch (req.query.ob) {
+                        case priceASC: localSql += 'ORDER BY price ASC';
+                    }
+            }
 
-            db.all(`SELECT * FROM products AS a, product_categories AS b WHERE b.category_id = ? AND a.id = b.product_id`, [categoryId], (err, products) => {
+            db.all(localSql, [categoryId], (err, products) => {
                 if (err) {
                     console.error(err.message);
                 }
@@ -53,6 +61,27 @@ app.get('/c/:category', function (req, res) {
                 console.log('Closed the database connection.');
             });
         });
+    });
+});
+
+app.get('/s/:searchinput', function (req, res) {
+    let searchInput = req.params.searchinput;
+
+    let db = new sqlite3.Database('products.db', sqlite3.OPEN_READONLY, (err) => {
+        if (err) console.error(err.message);
+        console.log('Connected to the products database.');
+    });
+
+    db.serialize(() => {
+        db.all(`SELECT * FROM products WHERE name LIKE '%${searchInput}%'`, (err, products) => {
+            if (err) console.error(err.message);
+            res.json(products)
+        });
+    });
+
+    db.close((err) => {
+        if (err) console.error(err.message);
+        console.log('Closed the database connection.');
     });
 });
 

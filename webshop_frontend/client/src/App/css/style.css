@@ -103,7 +103,13 @@ footer .page-footer {
 }
 
 .navbar-fixed .nav-content .active {
-  background: #333;
+  color: #ffffff !important;
+  border-bottom: solid 2px white;
+}
+
+.navbar-fixed .nav-content .tab {
+  padding: 0 15px;
+  color: #ffffffbd;
 }
 
 .navbar-fixed .nav-content .tab a:hover {
@@ -143,7 +149,7 @@ footer .page-footer {
 }
 
 .container.products {
-  margin: 75px auto;
+  margin: 100px auto;
 }
 
 .container.products .no-product {

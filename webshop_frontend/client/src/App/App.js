@@ -4,6 +4,8 @@ import Navbar from './partials/Navbar';
 import Footer from './partials/Footer'
 import ProductCards from './components/product-cards';
 import ProductPage from './pages/ProductPage';
+import CategoryPage from '../App/pages/CategoryPage'
+import SearchPage from '../App/pages/SearchPage'
 
 class App extends Component {
     render() {
@@ -14,8 +16,9 @@ class App extends Component {
                     <div>
                         <Switch>
                             <Route exact path='/' component={ProductCards} />
-                            <Route path='/c/:category' component={ProductCards} />
+                            <Route path='/c/:category' component={CategoryPage} />
                             <Route path='/p/:product' component={ProductPage} />
+                            <Route path='/s/:searchinput' component={SearchPage} />
                         </Switch>
                     </div>
                 </div>
