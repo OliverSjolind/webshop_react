@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import ProductCards from '../components/product-cards';
+import ProductCards from '../components/ProductCards';
 import { Route, Switch } from 'react-router-dom';
+import FilterBar from '../components/FilterBar'
 
 class CategoryPage extends Component {
     render() {
         return (
             <div>
-                <p>this is CategoryPage</p>
-                <Switch>
-                    <Route path='/c/:category' component={ProductCards} />
-                </Switch>
+                <Route path='/c/:category' component={FilterBar} />
+                <Route path='/c/:category' component={ProductCards} />
             </div>
         )
     }

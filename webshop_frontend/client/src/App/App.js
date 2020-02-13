@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Navbar from './partials/Navbar';
 import Footer from './partials/Footer'
-import ProductCards from './components/product-cards';
+import ProductCards from './components/ProductCards';
 import ProductPage from './pages/ProductPage';
 import CategoryPage from '../App/pages/CategoryPage'
 import SearchPage from '../App/pages/SearchPage'

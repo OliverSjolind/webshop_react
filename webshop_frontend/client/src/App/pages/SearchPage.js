@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProductCards from '../components/product-cards';
+import ProductCards from '../components/ProductCards';
 import { Route, Switch } from 'react-router-dom';
 
 class SearchPage extends Component {

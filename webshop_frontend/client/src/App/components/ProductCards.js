@@ -20,8 +20,6 @@ class ProductCards extends Component {
         this.getProducts();
     }
 
-
-
     // Retrieves the list of items from the Express app
     getProducts = () => {
         let currentUrl;
