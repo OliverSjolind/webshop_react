@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import M from 'materialize-css'
 
 class FilterBar extends Component {
+
+    componentDidMount() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems, {});
+    }
+
     render() {
+        console.log(this.props.location)
         return (
-            <div>
+            <div className="row filter-bar">
                 <div className="input-field col s3">
                     <input id="category-search" type="text" autocomplete="off" />
                     <label for="category-search">Search</label>
