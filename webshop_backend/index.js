@@ -46,9 +46,9 @@ app.get('/c/:category', function (req, res) {
             if (req.query) {
                 if (req.query.ob)
                     switch (req.query.ob) {
-                        case 'priceASC': localSql += 'ORDER BY price ASC';
+                        case 'priceAsc': localSql += 'ORDER BY price ASC';
                             break;
-                        case 'priceDESC': localSql += 'ORDER BY price DESC';
+                        case 'priceDesc': localSql += 'ORDER BY price DESC';
                     }
             }
             console.log(localSql)

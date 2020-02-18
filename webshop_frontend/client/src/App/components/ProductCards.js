@@ -23,13 +23,13 @@ class ProductCards extends Component {
     // Retrieves the list of items from the Express app
     getProducts = () => {
         let currentUrl;
-        console.log(this.props)
         switch (this.props.match.url) {
             case '/': currentUrl = '/getFrontpageProducts'
                 break;
             default:
                 currentUrl = this.props.location.pathname + this.props.location.search
         }
+        console.log(currentUrl);
         fetch(currentUrl)
             .then(res => res.json())
             .then(products => this.setState({ products }))
