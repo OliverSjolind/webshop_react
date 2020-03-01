@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import M from 'materialize-css'
-import { handleQueryParams } from '../js/functions'
+import { handleQueryParams, removeQueryParam } from '../js/functions'
+import Nouislider from "nouislider-react";
+import "nouislider/distribute/nouislider.css";
+
 
 class FilterBar extends Component {
     constructor(props) {
         super(props);
-        this.orderChange = this.orderChange.bind(this)
+        this.handleQuery = this.handleQuery.bind(this)
         this.componentDidUpdate = this.componentDidUpdate.bind(this)
     }
     componentDidUpdate(prevProps) {
@@ -22,23 +25,34 @@ class FilterBar extends Component {
     componentDidMount() {
         var elems = document.querySelectorAll('select');
         var instances = M.FormSelect.init(elems, {});
+
+        var slider = document.getElementById('slider');
+
+        noUiSlider.create(slider, {
+            start: [20, 80],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 100
+            }
+        });
     }
 
-    orderChange = (e) => {
-        this.setState({ orderValue: e.target.value });
+    handleQuery = (e) => {
         if (e.target.value) {
-            this.props.history.push(`${handleQueryParams(this.props.location.search, e.target.value)}`)
+            this.props.history.push(`${handleQueryParams(this.props.location.search, `${e.target.name}=${e.target.value}`)}`)
         } else {
-            this.props.history.push('?')
+            this.props.history.push(`${removeQueryParam(this.props.location.search, e.target.name)}`)
         }
     }
 
+    // name = query key
     render() {
         return (
             <div className="row filter-bar">
                 <form id="filterBar">
                     <div className="input-field col s3">
-                        <input id="category-search" type="text" autoComplete="off" />
+                        <input name="s" id="category-search" type="text" autoComplete="off" onChange={this.handleQuery} />
                         <label htmlFor="category-search">Search</label>
                     </div>
 
@@ -49,10 +63,10 @@ class FilterBar extends Component {
                     </div>
 
                     <div className="input-field col s3 offset-s1">
-                        <select id="order" name="order" onChange={this.orderChange}>
+                        <select id="order" name="ob" onChange={this.handleQuery}>
                             <option value="">Order by</option>
-                            <option id="lowHigh" className="orderOption" name="lowHigh" value="ob=priceAsc">price: low-high</option>
-                            <option className="orderOption" value="ob=priceDesc">price: high-low</option>
+                            <option id="lowHigh" className="orderOption" name="lowHigh" value="priceAsc">price: low-high</option>
+                            <option className="orderOption" value="priceDesc">price: high-low</option>
                         </select>
                     </div>
                 </form>

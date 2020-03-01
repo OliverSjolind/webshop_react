@@ -41,19 +41,23 @@ app.get('/c/:category', function (req, res) {
             if (err) console.error(err.message)
 
             let categoryId = row.id;
-            let queryParam = 'ORDER BY price ASC';
-            let localSql = `SELECT * FROM products AS a, product_categories AS b WHERE b.category_id = ? AND a.id = b.product_id `
+            let stockSqlite = `SELECT * FROM products AS a, product_categories AS b WHERE b.category_id = ? AND a.id = b.product_id`
             if (req.query) {
+                // Search
+                if (req.query.s) {
+                    stockSqlite += ` AND name LIKE '%${req.query.s}%'`
+                }
+                // Order by
                 if (req.query.ob)
                     switch (req.query.ob) {
-                        case 'priceAsc': localSql += 'ORDER BY price ASC';
+                        case 'priceAsc': stockSqlite += ' ORDER BY price ASC';
                             break;
-                        case 'priceDesc': localSql += 'ORDER BY price DESC';
+                        case 'priceDesc': stockSqlite += ' ORDER BY price DESC';
                     }
             }
-            console.log(localSql)
+            console.log(stockSqlite)
 
-            db.all(localSql, [categoryId], (err, products) => {
+            db.all(stockSqlite, [categoryId], (err, products) => {
                 if (err) {
                     console.error(err.message);
                 }

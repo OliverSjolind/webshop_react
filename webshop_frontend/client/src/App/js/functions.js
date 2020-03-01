@@ -7,22 +7,16 @@ export const handleQueryParams = (query, newQuery) => {
     newQuery = newQuery.split('=');
     let key = newQuery[0];
     let value = newQuery[1];
-    let txt = ''
-    let startOfQuery = '?';
-    if (parsed[key]) {
-        for (let i = 0; i < queryKeys.length; i++) {
-            if (i > 0) {
-                startOfQuery = '&';
-            }
-            key === queryKeys[i] ? txt += `${startOfQuery}${key}=${value}` : txt += `${startOfQuery}${queryKeys[i]}=${queryValues[i]}`
-        }
-    } else {
-        for (let i = 0; i < queryKeys.length + 1; i++) {
-            if (i > 0) {
-                startOfQuery = '&';
-            }
-            i === queryKeys.length ? txt += `${startOfQuery}${key}=${value}` : txt += `${startOfQuery}${queryKeys[i]}=${queryValues[i]}`
-        }
-    }
+    parsed[key] = value
+    let txt = '?'
+    txt += queryString.stringify(parsed);
+    return txt
+}
+
+export const removeQueryParam = (query, queryToDel) => {
+    var parsed = queryString.parse(query);
+    delete parsed[queryToDel]
+    let txt = '?'
+    txt += queryString.stringify(parsed);
     return txt
 }
