@@ -4,11 +4,17 @@ import { Route, Switch } from 'react-router-dom';
 import FilterBar from '../components/FilterBar'
 
 class CategoryPage extends Component {
+    state = { products: {} }
+    callbackFunction = (childData) => {
+        this.setState({ products: childData })
+    }
+
     render() {
+        console.log(this.state)
         return (
             <div>
-                <Route path='/c/:category' component={FilterBar} />
-                <Route path='/c/:category' component={ProductCards} />
+                <Route path='/c/:category' render={(props) => <FilterBar {...props} products={this.state.products} />} />
+                <Route path='/c/:category' render={(props) => <ProductCards {...props} parentCallback={this.callbackFunction} />} />
             </div>
         )
     }

@@ -27,18 +27,10 @@ class FilterBar extends Component {
         var instances = M.FormSelect.init(elems, {});
 
         var slider = document.getElementById('slider');
-
-        noUiSlider.create(slider, {
-            start: [20, 80],
-            connect: true,
-            range: {
-                'min': 0,
-                'max': 100
-            }
-        });
     }
 
     handleQuery = (e) => {
+        console.log(e)
         if (e.target.value) {
             this.props.history.push(`${handleQueryParams(this.props.location.search, `${e.target.name}=${e.target.value}`)}`)
         } else {
@@ -48,6 +40,10 @@ class FilterBar extends Component {
 
     // name = query key
     render() {
+        const Slider = () => (
+            <Nouislider range={{ min: 0, max: 100 }} start={[20, 80]} connect />
+        )
+
         return (
             <div className="row filter-bar">
                 <form id="filterBar">
@@ -57,7 +53,7 @@ class FilterBar extends Component {
                     </div>
 
                     <div className="col s5 mt5">
-                        <div id="price-slider"></div>
+                        <Slider></Slider>
                         <div className="price-range-filter"><input type="number" className="priceInput" id="minInput" />€ - <input type="number" className="priceInput" id="maxInput" />€ <a href="#" id="setprice">Set price range</a>
                         </div>
                     </div>

@@ -13,11 +13,20 @@ class ProductCards extends Component {
     componentDidUpdate(prevProps) {
         if (this.props !== prevProps) {
             this.getProducts();
+            console.log(prevProps);
+            if (this.props.parentCallback !== prevProps.parentCallback) {
+
+            }
         }
     }
 
     componentDidMount() {
+        this.sendToParent();
         this.getProducts();
+    }
+
+    sendToParent = () => {
+        this.props.parentCallback(this.state.products)
     }
 
     // Retrieves the list of items from the Express app
@@ -36,6 +45,7 @@ class ProductCards extends Component {
     }
 
     render() {
+
         if (!this.state.products) {
             return <div className="loader-wrapper">
                 <div className="preloader-wrapper big active">
@@ -52,8 +62,9 @@ class ProductCards extends Component {
             </div>
         }
         const { products } = this.state;
+
         return (
-            <div className="row">
+            <div className="row" id="productCards">
                 {
                     products.length ? (
                         <div>

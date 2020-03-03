@@ -43,6 +43,9 @@ app.get('/c/:category', function (req, res) {
             let categoryId = row.id;
             let stockSqlite = `SELECT * FROM products AS a, product_categories AS b WHERE b.category_id = ? AND a.id = b.product_id`
             if (req.query) {
+                // Price Range
+                //AND price BETWEEN 50 and 100
+
                 // Search
                 if (req.query.s) {
                     stockSqlite += ` AND name LIKE '%${req.query.s}%'`

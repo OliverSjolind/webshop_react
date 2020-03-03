@@ -2,8 +2,6 @@ const queryString = require('query-string');
 
 export const handleQueryParams = (query, newQuery) => {
     var parsed = queryString.parse(query);
-    let queryKeys = Object.keys(parsed)
-    let queryValues = Object.values(parsed)
     newQuery = newQuery.split('=');
     let key = newQuery[0];
     let value = newQuery[1];
