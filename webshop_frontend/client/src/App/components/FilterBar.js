@@ -30,7 +30,6 @@ class FilterBar extends Component {
     }
 
     handleQuery = (e) => {
-        console.log(e)
         if (e.target.value) {
             this.props.history.push(`${handleQueryParams(this.props.location.search, `${e.target.name}=${e.target.value}`)}`)
         } else {

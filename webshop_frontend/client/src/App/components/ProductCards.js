@@ -7,26 +7,22 @@ class ProductCards extends Component {
         this.state = {
             products: null
         }
+        this.sendData = this.sendData.bind(this)
     }
 
     // Fetch the list on first mount
     componentDidUpdate(prevProps) {
-        if (this.props !== prevProps) {
+        if (this.props.location.pathname + this.props.location.search !== prevProps.location.pathname + prevProps.location.search) {
             this.getProducts();
-            console.log(prevProps);
-            if (this.props.parentCallback !== prevProps.parentCallback) {
-
-            }
         }
     }
 
     componentDidMount() {
-        this.sendToParent();
         this.getProducts();
     }
 
-    sendToParent = () => {
-        this.props.parentCallback(this.state.products)
+    sendData = (data) => {
+        this.props.parentCallback(data);
     }
 
     // Retrieves the list of items from the Express app
@@ -38,10 +34,10 @@ class ProductCards extends Component {
             default:
                 currentUrl = this.props.location.pathname + this.props.location.search
         }
-        console.log(currentUrl);
         fetch(currentUrl)
             .then(res => res.json())
-            .then(products => this.setState({ products }))
+            .then(products => this.setState({ products: products }))
+        this.sendData(this.state.products)
     }
 
     render() {
@@ -62,7 +58,6 @@ class ProductCards extends Component {
             </div>
         }
         const { products } = this.state;
-
         return (
             <div className="row" id="productCards">
                 {
@@ -83,7 +78,6 @@ class ProductCards extends Component {
                                                         <span className="card-title">{item.name}</span>
                                                         <p className="card-desc">{item.description}</p>
                                                     </div>
-
                                                 </Link>
                                                 <div className="card-action">
                                                     <a className="btn grey darken-3 white-text" href="#">Add to cart</a>
