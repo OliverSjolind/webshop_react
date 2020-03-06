@@ -4,6 +4,29 @@ const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
 
+app.get('/getFrontpageProducts', function (req, res) {
+    console.log(req.header('User-Agent'));
+
+    let db = new sqlite3.Database('products.db', sqlite3.OPEN_READONLY, (err) => {
+        if (err) console.error(err.message);
+        console.log('Connected to the products database.');
+    });
+
+    db.serialize(() => {
+        db.all(`SELECT * FROM products ORDER BY random() LIMIT 8`, (err, products) => {
+            if (err) {
+                console.error(err.message);
+            }
+            res.json(products)
+        });
+    });
+    db.close((err) => {
+        if (err) console.error(err.message);
+        console.log('Closed the database connection.');
+    });
+});
+
+
 app.get('/p/:product', function (req, res, next) {
     let productUrl = req.params.product;
 
@@ -44,7 +67,10 @@ app.get('/c/:category', function (req, res) {
             let stockSqlite = `SELECT * FROM products AS a, product_categories AS b WHERE b.category_id = ? AND a.id = b.product_id`
             if (req.query) {
                 // Price Range
-                //AND price BETWEEN 50 and 100
+                if (req.query.pr) {
+                    let priceRange = req.query.pr.split('-')
+                    stockSqlite += ` AND price BETWEEN ${priceRange[0]} and ${priceRange[1]}`
+                }
 
                 // Search
                 if (req.query.s) {
@@ -83,20 +109,23 @@ app.get('/s/:searchinput', function (req, res) {
     });
 
     db.serialize(() => {
-        db.all(`SELECT * FROM products WHERE name LIKE '%${searchInput}%'`, (err, products) => {
+        db.get(`SELECT id FROM categories WHERE name = ?`, [categoryName], (err, row) => {
+
+            db.all(`SELECT * FROM products WHERE name LIKE '%${searchInput}%'`, (err, products) => {
+                if (err) console.error(err.message);
+                res.json(products)
+            });
+        });
+
+        db.close((err) => {
             if (err) console.error(err.message);
-            res.json(products)
+            console.log('Closed the database connection.');
         });
     });
+})
 
-    db.close((err) => {
-        if (err) console.error(err.message);
-        console.log('Closed the database connection.');
-    });
-});
-
-app.get('/getFrontpageProducts', function (req, res) {
-    console.log(req.header('User-Agent'));
+app.get('/c/:category/getPriceRange', function (req, res) {
+    let categoryName = req.params.category;
 
     let db = new sqlite3.Database('products.db', sqlite3.OPEN_READONLY, (err) => {
         if (err) console.error(err.message);
@@ -104,18 +133,24 @@ app.get('/getFrontpageProducts', function (req, res) {
     });
 
     db.serialize(() => {
-        db.all(`SELECT * FROM products ORDER BY random() LIMIT 8`, (err, products) => {
-            if (err) {
-                console.error(err.message);
-            }
-            res.json(products)
+        db.get(`SELECT id FROM categories WHERE name = ?`, [categoryName], (err, row) => {
+            if (err) console.error(err.message)
+            let categoryId = row.id;
+
+            db.all(`SELECT price FROM products AS a, product_categories AS b WHERE b.category_id = ? AND a.id = b.product_id`, [categoryId], (err, prices) => {
+                if (err) {
+                    console.error(err.message);
+                }
+                res.json(prices)
+            });
+            db.close((err) => {
+                if (err) console.error(err.message);
+                console.log('Closed the database connection.');
+            });
         });
     });
-    db.close((err) => {
-        if (err) console.error(err.message);
-        console.log('Closed the database connection.');
-    });
 });
+
 
 ////
 const port = process.env.PORT || 5000;

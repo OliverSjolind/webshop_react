@@ -7,20 +7,14 @@ class CategoryPage extends Component {
     constructor(props) {
         super(props)
         this.state = { products: {} }
-        this.callbackFunction = this.callbackFunction.bind(this)
-    }
-
-    callbackFunction = (childData) => {
-        this.setState({ products: childData })
-        console.log(childData)
     }
 
     render() {
 
         return (
             <div>
-                <Route path='/c/:category' render={(props) => <FilterBar {...props} products={this.state.products} />} />
-                <Route path='/c/:category' render={(props) => <ProductCards {...props} parentCallback={this.callbackFunction} />} />
+                <Route path='/c/:category' component={FilterBar} />
+                <Route path='/c/:category' component={ProductCards} />
             </div>
         )
     }

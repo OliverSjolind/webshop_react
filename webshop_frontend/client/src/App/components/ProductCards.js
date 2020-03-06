@@ -7,7 +7,6 @@ class ProductCards extends Component {
         this.state = {
             products: null
         }
-        this.sendData = this.sendData.bind(this)
     }
 
     // Fetch the list on first mount
@@ -19,10 +18,6 @@ class ProductCards extends Component {
 
     componentDidMount() {
         this.getProducts();
-    }
-
-    sendData = (data) => {
-        this.props.parentCallback(data);
     }
 
     // Retrieves the list of items from the Express app
@@ -37,7 +32,6 @@ class ProductCards extends Component {
         fetch(currentUrl)
             .then(res => res.json())
             .then(products => this.setState({ products: products }))
-        this.sendData(this.state.products)
     }
 
     render() {
