@@ -34,6 +34,13 @@ class ProductCards extends Component {
             .then(products => this.setState({ products: products }))
     }
 
+    addToCart = (id) => {
+        console.log(id);
+        let currentLocal = localStorage.getItem('cart')
+        console.log(currentLocal);
+        localStorage.setItem('cart', id)
+    }
+
     render() {
 
         if (!this.state.products) {
@@ -74,7 +81,7 @@ class ProductCards extends Component {
                                                     </div>
                                                 </Link>
                                                 <div className="card-action">
-                                                    <a className="btn grey darken-3 white-text" href="#">Add to cart</a>
+                                                    <a className="btn grey darken-3 white-text" onClick={() => this.addToCart(item.id)}>Add to cart</a>
                                                     <p className="price" value={item.price}>{item.price}€</p>
                                                 </div>
                                             </div>
