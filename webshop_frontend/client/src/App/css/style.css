@@ -166,10 +166,6 @@ footer .page-footer {
           align-items: center;
 }
 
-.container.products .dropdown-content {
-  z-index: 5 !important;
-}
-
 .container.products .noUi-connect {
   background: #424242;
 }

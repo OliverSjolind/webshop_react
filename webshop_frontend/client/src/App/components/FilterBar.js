@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import M from 'materialize-css'
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import { handleQueryParams, removeQueryParam } from '../js/functions'
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
@@ -9,12 +10,14 @@ class FilterBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            priceRange: null
+            priceRange: null,
+            ob: 'placeholder'
         }
         this.handleQuery = this.handleQuery.bind(this)
         this.componentDidUpdate = this.componentDidUpdate.bind(this)
         this.getCurrentCategory = this.getCurrentCategory.bind(this)
         this.handleSlider = this.handleSlider.bind(this)
+        this.handleOb = this.handleOb.bind(this)
     }
     componentDidUpdate(prevProps) {
         if (this.props.match.url !== prevProps.match.url) {
@@ -27,17 +30,20 @@ class FilterBar extends Component {
     }
 
     componentDidMount() {
-
-        var slider = document.getElementById('slider');
         this.getCurrentCategory()
     }
 
     handleQuery = (e) => {
-        if (e.target.value) {
+        if (e.target.value && e.target.value != 'placeholder') {
             this.props.history.push(`${handleQueryParams(this.props.location.search, `${e.target.name}=${e.target.value}`)}`)
         } else {
             this.props.history.push(`${removeQueryParam(this.props.location.search, e.target.name)}`)
         }
+    }
+
+    handleOb = (e) => {
+        this.setState({ ob: e.target.value })
+        this.handleQuery(e)
     }
 
     handleSlider = (e) => {
@@ -84,11 +90,8 @@ class FilterBar extends Component {
         let min = Math.floor(Math.min(...prices))
         let max = Math.ceil(Math.max(...prices))
         if (prices.length <= 1) {
-            console.log('test');
             return <div></div>
         }
-        var elems = document.querySelectorAll('select');
-        var instances = M.FormSelect.init(elems, {});
 
         return (
             <div className="row filter-bar">
@@ -105,11 +108,18 @@ class FilterBar extends Component {
                     </div>
 
                     <div className="col 3 offset-s1">
-                        <select id="order" name="ob" onChange={this.handleQuery}>
-                            <option value="">Order by</option>
-                            <option id="lowHigh" className="orderOption" name="lowHigh" value="priceAsc">price: low-high</option>
-                            <option className="orderOption" value="priceDesc">price: high-low</option>
-                        </select>
+                        <Select
+                            name="ob"
+                            id="order"
+                            value={this.state.ob}
+                            onChange={this.handleOb}
+                            fullWidth
+
+                        >
+                            <MenuItem className="orderOption" defaultValue value="placeholder">Order by</MenuItem >
+                            <MenuItem className="orderOption" value="priceAsc">price: low-high</MenuItem >
+                            <MenuItem className="orderOption" value="priceDesc">price: high-low</MenuItem >
+                        </Select>
                     </div>
                 </form>
             </div>
