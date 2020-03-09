@@ -151,6 +151,46 @@ app.get('/c/:category/getPriceRange', function (req, res) {
     });
 });
 
+app.get('/getProductsById', function (req, res) {
+    let ids = req.query.id
+    ids = ids.split('-')
+    console.log(ids);
+
+    let db = new sqlite3.Database('products.db', sqlite3.OPEN_READONLY, (err) => {
+        if (err) console.error(err.message);
+        console.log('Connected to the products database.');
+    });
+
+    db.serialize(() => {
+        let localSqlite = 'SELECT * FROM products WHERE id IN '
+        if (ids.length > 1) {
+            let SqliteToAdd = '('
+            for (let i = 0; i < ids.length; i++) {
+                if (i != ids.length - 1) {
+                    SqliteToAdd += `${ids[i]}, `
+                } else {
+                    SqliteToAdd += `${ids[i]})`
+                }
+            }
+            localSqlite += SqliteToAdd
+            console.log(localSqlite);
+        } else {
+            localSqlite += `(${ids[0]})`
+        }
+        db.all(localSqlite, (err, products) => {
+            if (err) {
+                console.error(err.message)
+            }
+            res.json(products)
+        });
+    });
+    db.close((err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        console.log('Closed the database connection.');
+    });
+});
 
 ////
 const port = process.env.PORT || 5000;

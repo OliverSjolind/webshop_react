@@ -6,13 +6,12 @@ import FilterBar from '../components/FilterBar'
 class CategoryPage extends Component {
     constructor(props) {
         super(props)
-        this.state = { products: {} }
     }
 
     render() {
 
         return (
-            <div>
+            <div className="container products">
                 <Route path='/c/:category' component={FilterBar} />
                 <Route path='/c/:category' component={ProductCards} />
             </div>

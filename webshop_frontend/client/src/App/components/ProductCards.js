@@ -34,7 +34,7 @@ class ProductCards extends Component {
             .then(products => this.setState({ products: products }))
     }
 
-    addToCart = (id) => {
+    addToCart = (id, name) => {
         let currentCart = localStorage.getItem('cart')
         currentCart = JSON.parse(currentCart)
 
@@ -54,7 +54,7 @@ class ProductCards extends Component {
 
             currentCart = [{ id: id, amount: 1 }]
         }
-
+        alert(name)
         localStorage.setItem('cart', JSON.stringify(currentCart))
     }
 
@@ -75,6 +75,7 @@ class ProductCards extends Component {
                 </div>
             </div>
         }
+
         const { products } = this.state;
         return (
             <div className="row" id="productCards">
@@ -83,6 +84,7 @@ class ProductCards extends Component {
                         <div>
                             {
                                 products.map((item) => {
+
                                     return (
                                         < div className="col s3 card-container" key={
                                             item.id
@@ -98,7 +100,7 @@ class ProductCards extends Component {
                                                     </div>
                                                 </Link>
                                                 <div className="card-action">
-                                                    <a className="btn grey darken-3 white-text" onClick={() => this.addToCart(item.id)}>Add to cart</a>
+                                                    <a className="btn grey darken-3 white-text" onClick={() => this.addToCart(item.product_id, item.name)}>Add to cart </a>
                                                     <p className="price" value={item.price}>{item.price}€</p>
                                                 </div>
                                             </div>

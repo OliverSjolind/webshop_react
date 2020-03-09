@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Navbar from './partials/Navbar';
 import Footer from './partials/Footer'
-import ProductCards from './components/ProductCards';
+import FrontPage from './pages/FrontPage'
 import ProductPage from './pages/ProductPage';
 import CategoryPage from '../App/pages/CategoryPage'
 import SearchPage from '../App/pages/SearchPage'
@@ -13,17 +13,16 @@ class App extends Component {
         const App = () => (
             <div id="body">
                 <Navbar />
-                <div className="container products">
-                    <div>
-                        <Switch>
-                            <Route exact path='/' component={ProductCards} />
-                            <Route path='/c/:category' component={CategoryPage} />
-                            <Route path='/p/:product' component={ProductPage} />
-                            <Route path='/s/:searchinput' component={SearchPage} />
-                            <Route path='/shoppingcart' component={CartPage} />
-                        </Switch>
-                    </div>
+                <div id="content">
+                    <Switch>
+                        <Route exact path='/' component={FrontPage} />
+                        <Route path='/c/:category' component={CategoryPage} />
+                        <Route path='/p/:product' component={ProductPage} />
+                        <Route path='/s/:searchinput' component={SearchPage} />
+                        <Route path='/shoppingcart' component={CartPage} />
+                    </Switch>
                 </div>
+
                 <Footer />
             </div>
         )
