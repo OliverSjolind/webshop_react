@@ -35,10 +35,27 @@ class ProductCards extends Component {
     }
 
     addToCart = (id) => {
-        console.log(id);
-        let currentLocal = localStorage.getItem('cart')
-        console.log(currentLocal);
-        localStorage.setItem('cart', id)
+        let currentCart = localStorage.getItem('cart')
+        currentCart = JSON.parse(currentCart)
+
+        let duplicatteStatus = false
+        if (currentCart) {
+            for (let i = 0; i < currentCart.length; i++) {
+                if (currentCart[i].id === id) {
+                    currentCart[i].amount++
+                    duplicatteStatus = true
+                    break
+                }
+            }
+            if (duplicatteStatus === false) {
+                currentCart.push({ id: id, amount: 1 })
+            }
+        } else {
+
+            currentCart = [{ id: id, amount: 1 }]
+        }
+
+        localStorage.setItem('cart', JSON.stringify(currentCart))
     }
 
     render() {

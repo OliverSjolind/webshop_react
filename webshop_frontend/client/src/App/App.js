@@ -6,11 +6,12 @@ import ProductCards from './components/ProductCards';
 import ProductPage from './pages/ProductPage';
 import CategoryPage from '../App/pages/CategoryPage'
 import SearchPage from '../App/pages/SearchPage'
+import CartPage from '../App/pages/CartPage'
 
 class App extends Component {
     render() {
         const App = () => (
-            <div>
+            <div id="body">
                 <Navbar />
                 <div className="container products">
                     <div>
@@ -19,6 +20,7 @@ class App extends Component {
                             <Route path='/c/:category' component={CategoryPage} />
                             <Route path='/p/:product' component={ProductPage} />
                             <Route path='/s/:searchinput' component={SearchPage} />
+                            <Route path='/shoppingcart' component={CartPage} />
                         </Switch>
                     </div>
                 </div>

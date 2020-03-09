@@ -61,9 +61,9 @@ class Navbar extends Component {
                                     </ul>
                                 </div>
                             </ul>
-                            <a className=" cart">
+                            <NavLink className="cart" to="/shoppingcart">
                                 <i className="material-icons">shopping_cart</i>
-                            </a>
+                            </NavLink>
                         </div>
                         <div className="nav-content container center">
                             <ul className="tabs tabs-transparent">
