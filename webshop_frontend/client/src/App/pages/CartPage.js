@@ -6,6 +6,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 class CartPage extends Component {
     constructor(props) {
@@ -34,6 +38,40 @@ class CartPage extends Component {
         } else {
             this.setState({ products: [] })
         }
+    }
+
+    removeProduct = (id) => {
+        let localCart = localStorage.getItem('cart')
+        localCart = JSON.parse(localCart)
+        console.log(localCart);
+
+        let current = localCart.map(function (e) { return e.id; }).indexOf(id)
+        console.log(`id:${id}, current: ${current}`);
+        localCart.splice(current, 1)
+        if (localCart.length) {
+            localStorage.setItem('cart', JSON.stringify(localCart))
+        } else {
+            localStorage.clear();
+        }
+        this.getProducts()
+    }
+
+    customToast = (name) => {
+        return (
+            <div>
+                removed <span>{name}</span> from shopping cart!
+            </div>
+        )
+    }
+
+    handleRemove = (id, name) => {
+        this.removeProduct(id)
+        toast.info(this.customToast(name));
+    }
+
+    removeAll = () => {
+        localStorage.clear();
+        this.getProducts()
     }
 
     render() {
@@ -72,8 +110,13 @@ class CartPage extends Component {
                         <div>
                             <TableContainer component={Paper}>
                                 <Table className="cartTable">
+                                    <caption><Button onClick={this.removeAll} variant="contained" className="button">
+                                        Empty cart
+                                    </Button>
+                                    </caption>
                                     <TableHead>
                                         <TableRow>
+                                            <TableCell className="tableHead"></TableCell>
                                             <TableCell className="tableHead"></TableCell>
                                             <TableCell className="tableHead">Name </TableCell>
                                             <TableCell align="center" className="tableHead">Quantity </TableCell>
@@ -83,7 +126,12 @@ class CartPage extends Component {
                                     <TableBody>
                                         {products.map(product => (
                                             <TableRow>
-                                                <TableCell component="th" scope="row"><img src={require(`../../assets/images/${product.image}`)} /></TableCell>
+                                                <TableCell>
+                                                    <i onClick={() => this.handleRemove(product.id, product.name)} class="material-icons removeItem">
+                                                        close
+                                                    </i>
+                                                </TableCell>
+                                                <TableCell component="th" align="center" scope="row"><img src={require(`../../assets/images/${product.image}`)} /></TableCell>
                                                 <TableCell component="th">{product.name}</TableCell>
                                                 <TableCell component="th" align="center" scope="row">{product.amount}</TableCell>
                                                 <TableCell align="center">{product.price}</TableCell>
@@ -100,6 +148,7 @@ class CartPage extends Component {
                             <h3>Cart is empty</h3>
                         </div>
                         )}
+                <ToastContainer autoClose={4000} position="bottom-right" />
             </div>
         )
     }

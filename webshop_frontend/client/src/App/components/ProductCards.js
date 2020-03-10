@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 class ProductCards extends Component {
     constructor(props) {
@@ -34,7 +38,7 @@ class ProductCards extends Component {
             .then(products => this.setState({ products: products }))
     }
 
-    addToCart = (id, name) => {
+    addToCart = (id, name, price) => {
         let currentCart = localStorage.getItem('cart')
         currentCart = JSON.parse(currentCart)
 
@@ -48,14 +52,25 @@ class ProductCards extends Component {
                 }
             }
             if (duplicatteStatus === false) {
-                currentCart.push({ id: id, amount: 1 })
+                currentCart.push({ id: id, price: price, amount: 1 })
             }
         } else {
-
-            currentCart = [{ id: id, amount: 1 }]
+            currentCart = [{ id: id, price: price, amount: 1 }]
         }
-        alert(name)
         localStorage.setItem('cart', JSON.stringify(currentCart))
+    }
+
+    customToast = (name) => {
+        return (
+            <div>
+                Added <span>{name}</span> to shopping cart!
+            </div>
+        )
+    }
+
+    handleClick = (id, name, price) => {
+        this.addToCart(id, name, price)
+        toast.info(this.customToast(name));
     }
 
     render() {
@@ -100,7 +115,7 @@ class ProductCards extends Component {
                                                     </div>
                                                 </Link>
                                                 <div className="card-action">
-                                                    <a className="btn grey darken-3 white-text" onClick={() => this.addToCart(item.product_id, item.name)}>Add to cart </a>
+                                                    <a className="btn grey darken-3 white-text" onClick={() => this.handleClick(item.product_id, item.name, item.price)}>Add to cart </a>
                                                     <p className="price" value={item.price}>{item.price}€</p>
                                                 </div>
                                             </div>
@@ -108,6 +123,7 @@ class ProductCards extends Component {
                                     );
                                 })
                             }
+                            <ToastContainer autoClose={4000} position="bottom-right" />
                         </div >
                     ) : (
                             <div className="no-product">

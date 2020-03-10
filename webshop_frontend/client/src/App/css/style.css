@@ -167,6 +167,14 @@ footer .page-footer {
           align-items: center;
 }
 
+div .Toastify__toast--info {
+  background-color: #323232;
+}
+
+div .Toastify__toast--info span {
+  font-weight: 700;
+}
+
 .container.products {
   margin: 100px auto;
 }
@@ -330,11 +338,17 @@ footer .page-footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-top: 80px;
   min-height: 80vh;
 }
 
 #cart .cartTable {
   min-width: 600px;
+}
+
+#cart .cartTable .button {
+  background-color: #424242;
+  color: #fff;
 }
 
 #cart .cartTable .MuiTableRow-head .MuiTableCell-head {
@@ -348,6 +362,10 @@ footer .page-footer {
 
 #cart .cartTable .MuiTableCell-body img {
   max-height: 100px;
+}
+
+#cart .cartTable .MuiTableCell-body .removeItem {
+  cursor: pointer;
 }
 
 #cart #emptyCart #emptyCartIcon {
