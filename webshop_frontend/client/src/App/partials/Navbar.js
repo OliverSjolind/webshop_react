@@ -6,9 +6,18 @@ class Navbar extends Component {
         super(props);
         this.state = {
             searchValue: '',
-            search: false
+            search: false,
+            price: null
         }
         this._handleKeyDown = this._handleKeyDown.bind(this)
+    }
+
+    componentDidUpdate() {
+        this.updatePrice()
+    }
+
+    componentDidMount() {
+        window.addEventListener("storage", this.updatePrice(), false);
     }
 
     handleInput(e) {
@@ -27,6 +36,12 @@ class Navbar extends Component {
         if (e.key === 'Enter') {
             this.handleSearch()
         }
+    }
+
+    updatePrice = () => {
+        let localCart = localStorage.getItem('cart');
+        localCart = JSON.parse(localCart)
+        console.log(localCart);
     }
 
     render() {

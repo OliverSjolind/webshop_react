@@ -31,6 +31,8 @@ class CartPage extends Component {
             for (let i = 0; i < localCart.length; i++) {
                 ids.push(localCart[i].id)
             }
+            console.log(ids);
+
             let url = `/getProductsById?id=${ids.join('-')}`
             fetch(url)
                 .then(res => res.json())
@@ -43,8 +45,6 @@ class CartPage extends Component {
     removeProduct = (id) => {
         let localCart = localStorage.getItem('cart')
         localCart = JSON.parse(localCart)
-        console.log(localCart);
-
         let current = localCart.map(function (e) { return e.id; }).indexOf(id)
         console.log(`id:${id}, current: ${current}`);
         localCart.splice(current, 1)
@@ -72,6 +72,7 @@ class CartPage extends Component {
     removeAll = () => {
         localStorage.clear();
         this.getProducts()
+        toast.info('Removed all items from shopping cart');
     }
 
     render() {
