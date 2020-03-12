@@ -192,6 +192,26 @@ app.get('/getProductsById', function (req, res) {
     });
 });
 
+// app.post('/uploadProduct', function (req, res) {
+//     let db = new sqlite3.Database('products.db', sqlite3.OPEN_READONLY, (err) => {
+//         if (err) console.error(err.message);
+//         console.log('Connected to the products database.');
+//     });
+//     let productArr = ['name', 'price', 'desc']
+
+//     db.serialize(() => {
+//         db.all('INSERT INTO products(name, price, description) VALUES(?, ?, ?)', productArr, (err, productArr) => {
+//             res.json(productArr)
+//         })
+//     })
+//     db.close((err) => {
+//         if (err) {
+//             console.error(err.message);
+//         }
+//         console.log('Closed the database connection.');
+//     });
+// })
+
 ////
 const port = process.env.PORT || 5000;
 app.listen(port);
