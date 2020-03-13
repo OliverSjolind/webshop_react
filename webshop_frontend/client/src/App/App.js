@@ -7,6 +7,7 @@ import ProductPage from './pages/ProductPage';
 import CategoryPage from '../App/pages/CategoryPage'
 import SearchPage from '../App/pages/SearchPage'
 import CartPage from '../App/pages/CartPage'
+import AdminProductList from '../App/adminPages/ProductList';
 
 class App extends Component {
     render() {
@@ -20,6 +21,7 @@ class App extends Component {
                         <Route path='/p/:product' component={ProductPage} />
                         <Route path='/s/:searchinput' component={SearchPage} />
                         <Route path='/shoppingcart' component={CartPage} />
+                        <Route path='/adminPage/productlist' component={AdminProductList} />
                     </Switch>
                 </div>
 
